@@ -437,7 +437,7 @@ export default function Industrial() {
       )}
 
       <Text style={styles.norma}>
-        ANSI/ISA-101.01-2015 · MAINTRONIC · UDLA 2026 · v1.1
+        ANSI/ISA-101.01-2015 · MAINTRONIC · UDLA 2026
       </Text>
     </ScrollView>
   );
