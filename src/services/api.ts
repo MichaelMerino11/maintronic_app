@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // IP del servidor en la VPN ZeroTier (PC de Michelle)
-const API_BASE = "http://10.22.38.25:3000/api";
+const API_BASE = "https://sistemamonitoreotesis-production.up.railway.app/api";
 
 const api = axios.create({
   baseURL: API_BASE,
@@ -23,6 +23,20 @@ export const getAlarmasActivas = () =>
   api.get("/medidores/alarmas/log/activas");
 export const getAlarmaConfig = (variableId: number) =>
   api.get(`/medidores/variables/${variableId}/alarma`);
+
+// ── HISTÓRICO ──
+export const getSerieVariable = (
+  variableId: number,
+  horas: number,
+  puntos = 150,
+) =>
+  api.get(`/medidores/variables/${variableId}/serie`, {
+    params: { horas, puntos },
+  });
+export const getAlarmasHistorico = (variableId: number, horas: number) =>
+  api.get("/medidores/alarmas/log/historico", {
+    params: { variable_id: variableId, horas },
+  });
 
 // ── GATEWAY (Tinkerboard) ──
 export const getGatewayEstado = () => api.get("/gateway/estado");

@@ -41,6 +41,15 @@ export default function Layout() {
           ),
         }}
       />
+      <Tabs.Screen
+        name="historico"
+        options={{
+          title: "Histórico",
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="stats-chart" size={22} color={color} />
+          ),
+        }}
+      />
     </Tabs>
   );
 }

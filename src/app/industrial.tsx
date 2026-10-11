@@ -6,7 +6,9 @@ import {
   ScrollView,
   RefreshControl,
   ActivityIndicator,
+  Pressable,
 } from "react-native";
+import { useRouter, type Href } from "expo-router";
 import { Colors } from "../theme/colors";
 import {
   getMedidoresLecturas,
@@ -192,6 +194,7 @@ function Faceplate({
 }
 
 export default function Industrial() {
+  const router = useRouter();
   const [lecturas, setLecturas] = useState<Lectura[]>([]);
   const [alarmas, setAlarmas] = useState<AlarmaActiva[]>([]);
   const [gw, setGw] = useState<GatewayEstado | null>(null);
@@ -399,7 +402,13 @@ export default function Industrial() {
                 const alarm =
                   calidad === "ok" ? (alarmaPorVariable[l.id] ?? null) : null;
                 return (
-                  <View key={l.id} style={styles.faceplateWrapper}>
+                  <Pressable
+                    key={l.id}
+                    style={styles.faceplateWrapper}
+                    onPress={() => router.push(`/historico?id=${l.id}` as Href)}
+                    accessibilityRole="button"
+                    accessibilityLabel={`Ver histórico de ${l.nombre}`}
+                  >
                     <Faceplate
                       tag={tag(l, slave, idx + 1)}
                       label={l.nombre}
@@ -410,7 +419,7 @@ export default function Industrial() {
                       alarm={alarm}
                       calidad={calidad}
                     />
-                  </View>
+                  </Pressable>
                 );
               })}
             </View>
@@ -428,7 +437,7 @@ export default function Industrial() {
       )}
 
       <Text style={styles.norma}>
-        ANSI/ISA-101.01-2015 · MAINTRONIC · UDLA 2026
+        ANSI/ISA-101.01-2015 · MAINTRONIC · UDLA 2026 · v1.1
       </Text>
     </ScrollView>
   );
